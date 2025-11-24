@@ -1,0 +1,53 @@
+
+# Consultas MongoDB – Proyecto Completo
+
+## 1. Inserción de datos
+db.estudiante.insertMany([
+  { codigo: 1001, nombre: "Ana", apellido: "Perez", edad: 20, semestre: 3, carrera: "Sistemas", promedio: 4.5, estadoActivo: true },
+  { codigo: 1002, nombre: "Luis", apellido: "Gomez", edad: 22, semestre: 5, carrera: "Ingeniería", promedio: 3.8, estadoActivo: true },
+  { codigo: 1003, nombre: "Maria", apellido: "Lopez", edad: 19, semestre: 2, carrera: "Psicología", promedio: 4.1, estadoActivo: false }
+])
+
+## 2. Inserción adicional solicitada
+db.estudiante.insertOne({
+  codigo: 1050,
+  nombre: "NUEVO",
+  apellido: "REINGRESO",
+  edad: 21,
+  semestre: 4,
+  carrera: "Sistemas",
+  promedio: 4.2,
+  estadoActivo: true
+})
+
+## 3. Consultas básicas
+db.estudiante.find()
+db.estudiante.find({ carrera: "Sistemas" })
+db.estudiante.find({ carrera: "Psicología" })
+
+## 4. Operadores de comparación
+db.estudiante.find({ promedio: { $gt: 4.0 } })
+db.estudiante.find({ edad: { $lte: 20 } })
+db.estudiante.find({ edad: { $gt: 21 } })
+
+## 5. Filtros combinados
+db.estudiante.find({ estadoActivo: true, carrera: "Ingeniería" })
+
+## 6. Operaciones de actualización
+db.estudiante.updateOne(
+  { codigo: 1001 },
+  { $set: { promedio: 4.9 } }
+)
+
+## 7. Eliminación
+db.estudiante.deleteOne({ codigo: 1050 })
+
+## 8. Consultas de agregación
+db.estudiante.aggregate([
+  { $group: { _id: "$carrera", total: { $sum: 1 } } }
+])
+
+## 9. Otra agregación solicitada
+db.estudiante.aggregate([
+  { $group: { _id: "$carrera", total: { $sum: 1 } } }
+])
